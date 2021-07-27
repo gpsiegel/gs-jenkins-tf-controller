@@ -1,0 +1,23 @@
+---
+
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: Upgrade all packages on servers
+      apt: upgrade=dist force_apt_get=yes
+
+    - name: ensure the jenkins apt repository key is installed
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+
+    - name: ensure the repository is configured
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+
+    - name: ensure jenkins is installed
+      apt: name=jenkins update_cache=yes
+
+    - name: ensure jenkins is running
+      service: name=jenkins state=started
