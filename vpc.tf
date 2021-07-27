@@ -31,6 +31,11 @@ resource "aws_route_table" "jenkins_rt" {
     gateway_id = aws_internet_gateway.jenkins_gw.id
   }
 
+resource "aws_main_route_table_association" "jenkins_assoc" {
+  vpc_id         = aws_vpc.jenkins_vpc.id
+  route_table_id = aws_route_table.jenkins_rt.id
+}
+
 resource "aws_security_group" "jenkins_sg" {
   name        = "Jenkins SG"
   description = "Allow Ports to Configure Jenkins Instance"
