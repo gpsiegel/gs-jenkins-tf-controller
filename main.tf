@@ -23,7 +23,8 @@ resource "aws_instance" "jenkins_instance" {
 
 
     subnet_id = "${aws_subnet.jenkins_subnet.id}"
-    security_group_ids = ["${aws_security_group.jenkins_instance.id}"]
+    vpc_security_group_ids = ["${aws_security_group.jenkins_sg.id}"]
+    #security_group_ids = ["${aws_security_group.jenkins_instance.id}"]
     associate_public_ip_address = true
 
     # We're assuming there's a key with this name already
