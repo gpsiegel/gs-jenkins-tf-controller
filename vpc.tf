@@ -8,11 +8,11 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-resource "aws_vpc" jenkins_vpc {
+resource "aws_vpc" "jenkins_vpc" {
     cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_internet_gateway" "jeknins_gw" {
+resource "aws_internet_gateway" "jenkins_gw" {
   vpc_id = aws_vpc.jenkins_vpc.id
 }
 
