@@ -16,11 +16,20 @@ resource "aws_internet_gateway" "jeknins_gw" {
   vpc_id = aws_vpc.jenkins_vpc.id
 }
 
+
 resource "aws_subnet" "jenkins_subnet" {
   vpc_id     = aws_vpc.jenkins_vpc.id
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
   cidr_block = "10.0.1.0/24"
 }
+
+resource "aws_route_table" "jenkins_rt" {
+  vpc_id = aws_vpc.jenkins_vpc.id
+
+  route {
+    cidr_block = "10.0.1.0/24"
+    gateway_id = aws_internet_gateway.jenkins_gw.id
+  }
 
 resource "aws_security_group" "jenkins_sg" {
   name        = "Jenkins SG"
