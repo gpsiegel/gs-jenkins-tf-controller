@@ -13,7 +13,7 @@ resource "aws_vpc" jenkins_vpc {
 }
 
 resource "aws_internet_gateway" "jeknins_gw" {
-  vpc_id = aws_vpc.jenkins_vpc
+  vpc_id = aws_vpc.jenkins_vpc.id
 }
 
 resource "aws_subnet" "jenkins_subnet" {
