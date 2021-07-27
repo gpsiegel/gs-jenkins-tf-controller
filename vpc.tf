@@ -30,6 +30,7 @@ resource "aws_route_table" "jenkins_rt" {
     cidr_block = "10.0.1.0/24"
     gateway_id = aws_internet_gateway.jenkins_gw.id
   }
+}
 
 resource "aws_main_route_table_association" "jenkins_assoc" {
   vpc_id         = aws_vpc.jenkins_vpc.id
