@@ -27,19 +27,11 @@ resource "aws_instance" "jenkins_instance" {
     #security_group_ids = ["${aws_security_group.jenkins_instance.id}"]
     associate_public_ip_address = true
 
-    # We're assuming there's a key with this name already
     key_name = "build"
-/*
-    provisioner "local-exec" {
-    depends_on = [aws_instance.jenkins_instance]
-    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ./build.pem -i '${aws_instance.jenkins_instance.public_ip},' playbook.yaml"
-  }
-*/
-}
 
     #Ansible Command to configure Jenkins on this instance
     provisioner "local-exec" {
-      depends_on = [aws_instance.jenkins_instance]
-      command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ./build.pem -i '${aws_instance.jenkins_instance.public_ip},' playbook.yaml"
-    }
+    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --private-key ./build.pem -i '${aws_instance.jenkins_instance.public_ip},' playbook.yaml"
+  }
+
 }
