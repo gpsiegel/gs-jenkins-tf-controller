@@ -35,3 +35,7 @@ resource "aws_instance" "jenkins_instance" {
   }
 
 }
+
+module "repositories" {
+  source = "./repositories"
+}
